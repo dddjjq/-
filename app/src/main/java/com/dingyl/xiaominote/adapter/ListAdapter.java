@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.dingyl.xiaominote.R;
@@ -48,6 +49,7 @@ public class ListAdapter extends BaseAdapter{
             holder.title = convertView.findViewById(R.id.title);
             holder.contentSummary = convertView.findViewById(R.id.contentSummary);
             holder.dateTime = convertView.findViewById(R.id.date_time);
+            holder.checkBox = convertView.findViewById(R.id.is_checked);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
@@ -59,7 +61,6 @@ public class ListAdapter extends BaseAdapter{
         }else {
             holder.contentSummary.setVisibility(View.GONE);
         }
-
         holder.dateTime.setText(arrayList.get(position).getDate());
         return convertView;
     }
@@ -68,5 +69,6 @@ public class ListAdapter extends BaseAdapter{
         TextView title;
         TextView contentSummary;
         TextView dateTime;
+        CheckBox checkBox;
     }
 }

@@ -1,11 +1,14 @@
 package com.dingyl.xiaominote.data;
 
-public class BaseData {
+import java.io.Serializable;
+
+public class BaseData implements Serializable{
 
     private String title;
     private String content;
     private String contentSummary;
     private String date;
+    private int id;
 
     public String getTitle(){
         return content.split("\n")[0];
@@ -33,5 +36,13 @@ public class BaseData {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

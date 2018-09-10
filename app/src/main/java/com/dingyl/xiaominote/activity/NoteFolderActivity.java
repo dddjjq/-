@@ -12,4 +12,10 @@ public class NoteFolderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_folder);
     }
+
+    @Override
+    public void finish(){
+        super.finish();
+        overridePendingTransition(R.anim.folder_stay,R.anim.folder_out);
+    }
 }
