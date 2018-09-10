@@ -58,12 +58,13 @@ public class NoteContentActivity extends AppCompatActivity {
             baseData = (BaseData) intent.getSerializableExtra("data");
             isExist = true;
             id = baseData.getId();
+            Log.d(TAG,"hasExtra data is : " + id);
         }else {
             baseData.setDate(dateAndTime);
             isExist = false;
             id = utils.getInt(Constants.ID,0);
+            Log.d(TAG,"don't hasExtra data is : " + id);
         }
-        Log.d(TAG,"baseData.getDate() is : " + baseData.getDate());
         date = baseData.getDate().split(" ")[0];
         time = baseData.getDate().split(" ")[1];
         editText.setText(baseData.getContent());
@@ -90,9 +91,11 @@ public class NoteContentActivity extends AppCompatActivity {
             Log.d(TAG,"baseData.getId() is : " + baseData.getId());
             dbUtil.updateData(baseData.getId(),baseData);
         }else {
-            dbUtil.insertData(baseData);
-            utils.putInt(Constants.ID,utils.getInt(Constants.ID,0)+1);
+            id = utils.getInt(Constants.ID,0)+1;
+            utils.putInt(Constants.ID,id);
             baseData.setId(id);
+            dbUtil.insertData(baseData);
+            Log.d(TAG,"set ID is : " + id);
         }
     }
 }

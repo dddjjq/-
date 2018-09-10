@@ -39,6 +39,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="20dp"
-        android:background="@drawable/check_box"
+        android:button="@drawable/check_box"
+        android:visibility="gone"
         />
 </RelativeLayout>

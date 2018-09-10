@@ -45,4 +45,8 @@ public class BaseData implements Serializable{
     public void setId(int id) {
         this.id = id;
     }
+
+    public String toString(){
+        return "id is : " + id;
+    }
 }

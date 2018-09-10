@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.dingyl.xiaominote.activity.NoteContentActivity;
 import com.dingyl.xiaominote.activity.NoteFolderActivity;
+import com.dingyl.xiaominote.adapter.GridAdapter;
 import com.dingyl.xiaominote.adapter.ListAdapter;
 import com.dingyl.xiaominote.data.BaseData;
 import com.dingyl.xiaominote.db.DBUtil;
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements MainToolBar.OnLef
     private ArrayList<BaseData> arrayList;
     private FloatingActionButton addButton;
     private DBUtil dbUtil;
-    private ListAdapter adapter;
+    private ListAdapter listAdapter;
+    private GridAdapter gridAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements MainToolBar.OnLef
         setContentView(R.layout.activity_main);
         Log.d(TAG,"onCreate");
         initView();
-
     }
 
     @Override
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements MainToolBar.OnLef
         mainToolBar.setOnLeftItemClickListener(this);
         mainToolBar.setOnRightItemClickListener(this);
         addButton.setOnClickListener(this);
-        adapter = new ListAdapter(this,arrayList);
-        listView.setAdapter(adapter);
+        listAdapter = new ListAdapter(this,arrayList);
+        listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -74,6 +75,20 @@ public class MainActivity extends AppCompatActivity implements MainToolBar.OnLef
                 startActivity(intent);
             }
         });
+        for(BaseData bd:arrayList){
+            Log.d(TAG,bd.toString());
+        }
+//        gridAdapter = new GridAdapter(this,arrayList);
+//        gridView.setAdapter(gridAdapter);
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(MainActivity.this, NoteContentActivity.class);
+//                intent.putExtra("data",arrayList.get(i));
+//                startActivity(intent);
+//            }
+//        });
+
     }
 
     private void initData(){
@@ -110,9 +125,13 @@ public class MainActivity extends AppCompatActivity implements MainToolBar.OnLef
         if(listGridStatus == 0){
             Drawable drawable = this.getResources().getDrawable(R.drawable.list);
             mainToolBar.setRightbtn(drawable);
+            listView.setVisibility(View.GONE);
+            gridView.setVisibility(View.VISIBLE);
         }else {
             Drawable drawable = this.getResources().getDrawable(R.drawable.list_grid);
             mainToolBar.setRightbtn(drawable);
+            listView.setVisibility(View.VISIBLE);
+            gridView.setVisibility(View.GONE);
         }
     }
 
@@ -120,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements MainToolBar.OnLef
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.floating_button:
-                adapter.notifyDataSetChanged();
+                listAdapter.notifyDataSetChanged();
                 Intent intent = new Intent(this,NoteContentActivity.class);
                 startActivity(intent);
                 break;
